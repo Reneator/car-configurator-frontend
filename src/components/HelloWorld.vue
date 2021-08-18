@@ -7,6 +7,8 @@
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
     <h3>Installed CLI Plugins</h3>
+    {{ response_data }}
+    <button @click="getList">get api data</button>
     <h4>blubberuppp asdgashregasdf</h4>
     <h5>whaaaaaa</h5>
     <ul>
@@ -35,8 +37,23 @@
 <script>
 export default {
   name: 'HelloWorld',
+  data() {
+    return {
+      api: "http://157.90.116.81:8081/carconfigurator/configs/",
+      response_data: ""
+
+    }
+  },
   props: {
     msg: String
+  },
+methods: {
+    getList() {
+      this.axios.get(this.api + "all").then((response) => {
+        this.response_data = response.data
+        console.log(response.data)
+      })
+    }
   }
 }
 </script>
