@@ -1,15 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <CarSelector/>
+  <ConfigurationSelector/>
+  <ConfigurationSummary/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CarSelector from './components/CarSelector.vue'
+import ConfigurationSelector from './components/ConfigurationSelector.vue'
+import ConfigurationSummary from './components/ConfigurationSummary.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    CarSelector,
+    ConfigurationSelector,
+    ConfigurationSummary
   }
 }
 </script>

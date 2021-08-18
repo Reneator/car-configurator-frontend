@@ -9,6 +9,15 @@
     <h3>Installed CLI Plugins</h3>
     {{ response_data }}
     <button @click="getList">get api data</button>
+    <Dropdown
+    :options="getList"
+    v-on:selected="validateSelection"
+    v-on:filter="getDropdownValues"
+    :disabled="false"
+    name="zipcode"
+    :maxItem="10"
+    placeholder="Please select an option">
+    </Dropdown>
     <h4>blubberuppp asdgashregasdf</h4>
     <h5>whaaaaaa</h5>
     <ul>
@@ -51,7 +60,7 @@ methods: {
     getList() {
       this.axios.get(this.api + "all").then((response) => {
         this.response_data = response.data
-        console.log(response.data)
+        return this.response_data
       })
     }
   }
