@@ -1,6 +1,7 @@
 <template>
   <CarSelector @carSelected="onCarSelected($event)"/>
-  <ConfigurationSelector v-bind:selectedCar="selectedCar"/>
+  <ConfigurationSelector @configChanged="onConfigChanged($event)" v-bind:selectedCar="selectedCar"/>
+  {{ currentConfig }}
   <ConfigurationSummary/>
 </template>
 
@@ -14,7 +15,8 @@ export default {
   name: 'App',
   data() {
     return {
-      selectedCar: ""
+      selectedCar: "",
+      currentConfig: "",
     }
   },
   components: {
@@ -25,6 +27,9 @@ export default {
   methods: {
     onCarSelected(event) {
       this.selectedCar = event;
+    },
+    onConfigChanged(event) {
+      this.currentConfig = event;
     }
 
   }

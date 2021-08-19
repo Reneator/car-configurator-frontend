@@ -40,6 +40,7 @@ export default {
     });
     this.initialized = true;
   },
+  emits: ['carSelected'],
   methods: {
     getList() {
       var array = [];
