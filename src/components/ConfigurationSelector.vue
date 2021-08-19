@@ -1,13 +1,15 @@
 <template>
   <div class="ConfigurationSelector">
-      ConfigurationSelection
+    ConfigurationSelection
+    <div>{{ selectedCar }}</div>
   </div>
 </template>
 
 <script>
 export default {
-    name:"ConfigurationSelector"
-}
+  name: "ConfigurationSelector",
+  props: ["selectedCar"],
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

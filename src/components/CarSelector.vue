@@ -7,12 +7,16 @@
     <div>
       <label for="cars">Choose a car:</label>
 
-      <select v-model="selectedCar">
-        <option v-for="car in response_data" :key="car.name" v-bind:value="car">{{ car.name }}</option>
+      <select v-model="selectedCar" @change="carSelect()">
+        <option
+          v-for="car in response_data"
+          :key="car.name"
+          v-bind:value="car"
+          >{{ car.name }}</option
+        >
       </select>
     </div>
-      Selected Car:
-      {{ selectedCar }}
+
   </div>
 </template>
 
@@ -26,9 +30,7 @@ export default {
       selectedCar: "",
     };
   },
-  props: {
-    msg: String,
-  },
+
   created() {
     this.axios.get(this.api + "all").then((response) => {
       this.response_data = response.data;
@@ -46,6 +48,9 @@ export default {
         array.push(element.name);
       });
     },
+    carSelect(){
+      this.$emit('carSelected',this.selectedCar)
+    }
   },
 };
 </script>

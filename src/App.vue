@@ -1,6 +1,6 @@
 <template>
-  <CarSelector/>
-  <ConfigurationSelector/>
+  <CarSelector @carSelected="onCarSelected($event)"/>
+  <ConfigurationSelector v-bind:selectedCar="selectedCar"/>
   <ConfigurationSummary/>
 </template>
 
@@ -12,10 +12,21 @@ import ConfigurationSummary from './components/ConfigurationSummary.vue'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      selectedCar: ""
+    }
+  },
   components: {
     CarSelector,
     ConfigurationSelector,
     ConfigurationSummary
+  },
+  methods: {
+    onCarSelected(event) {
+      this.selectedCar = event;
+    }
+
   }
 }
 </script>
