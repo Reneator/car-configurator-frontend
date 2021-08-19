@@ -14,8 +14,7 @@
     "core-js": "^3.6.5",
     "save": "^2.4.0",
     "vue": "^3.2.4",
-    "vue-axios": "^3.2.5",
-    "vue-simple-search-dropdown": "^1.0.1"
+    "vue-axios": "^3.2.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
