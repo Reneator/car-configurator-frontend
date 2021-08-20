@@ -1,6 +1,6 @@
 <template>
   <CarSelector @carSelected="onCarSelected($event)"/>
-  <ConfigurationSelector @configChanged="onConfigChanged($event)" v-bind:selectedCar="selectedCar"/>
+  <ConfigurationSelector @configChanged="onConfigChanged($event)" @pressedPurchase="openSummary()" v-bind:selectedCar="selectedCar"/>
   <ConfigurationSummary v-if="showSummary" v-bind:currentConfig="currentConfig" v-bind:totalPrice="totalPrice" v-bind:showSummary="showSummary"/>
 </template>
 
@@ -32,6 +32,9 @@ export default {
     onConfigChanged(event) {
       this.currentConfig = event;
       this.calculateTotalPrice()
+    },
+    openSummary(){
+      this.showSummary = true
     },
     calculateTotalPrice(){
       if (this.currentConfig === ""){

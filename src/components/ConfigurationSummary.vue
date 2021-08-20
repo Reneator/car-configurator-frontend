@@ -11,13 +11,22 @@
        Motor: {{ currentConfig.rims.name }} + {{ currentConfig.rims.price }} Euro
       </div>
       <div> {{ totalPrice }}</div>
+      <button @click="confirmPurchase()">Kauf bestätigen!</button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: ["currentConfig","totalPrice"]
+  props: ["currentConfig","totalPrice"],
+  methods: {
+    confirmPurchase(){
+      var payload = {dateTime:Date.now(),configuration:this.currentConfig}
+      this.axios.post("http://157.90.116.81:8081/carconfigurator/orders/",payload).then((response) => {
+        console.log(response)
+    });
+    }
+  }
 }
 </script>
 

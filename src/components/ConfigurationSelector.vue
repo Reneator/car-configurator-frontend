@@ -37,6 +37,9 @@
     <div>
       Aktueller Preis: {{ totalPrice }} Euro
     </div>
+    <div>
+      <button @click="$emit('pressedPurchase')">Kaufen</button>
+    </div>
   </div>
 </template>
 
@@ -44,7 +47,7 @@
 export default {
   name: "ConfigurationSelector",
   props: ["selectedCar"],
-  emits: ["configChanged"],
+  emits: ["configChanged","pressedPurchase"],
   data() {
     return {
       engines: "",
