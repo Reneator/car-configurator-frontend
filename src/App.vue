@@ -1,8 +1,7 @@
 <template>
   <CarSelector @carSelected="onCarSelected($event)"/>
   <ConfigurationSelector @configChanged="onConfigChanged($event)" v-bind:selectedCar="selectedCar"/>
-  {{ currentConfig }}
-  <ConfigurationSummary/>
+  <ConfigurationSummary v-if="showSummary" v-bind:currentConfig="currentConfig" v-bind:totalPrice="totalPrice" v-bind:showSummary="showSummary"/>
 </template>
 
 <script>
@@ -17,6 +16,8 @@ export default {
     return {
       selectedCar: "",
       currentConfig: "",
+      totalPrice: 0,
+      showSummary: "",
     }
   },
   components: {
@@ -30,8 +31,28 @@ export default {
     },
     onConfigChanged(event) {
       this.currentConfig = event;
-    }
+      this.calculateTotalPrice()
+    },
+    calculateTotalPrice(){
+      if (this.currentConfig === ""){
+        return      }
+      var total = 0
+      total += this.currentConfig.basePrice
 
+      console.log(total)
+      console.log(this.currentConfig.engine)
+
+      if(this.currentConfig.engine){
+        total+= this.currentConfig.engine.price
+      }
+      if (this.currentConfig.paintJob){
+        total+= this.currentConfig.paintJob.price
+      }
+      if (this.currentConfig.rims){
+        total += this.currentConfig.rims.price
+      }
+      this.totalPrice = total
+    }
   }
 }
 </script>

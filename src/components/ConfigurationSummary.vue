@@ -1,12 +1,23 @@
 <template>
   <div class="summary">
       Summary
+      <div v-if="currentConfig.engine">
+       Motor: {{ currentConfig.engine.name }} + {{ currentConfig.engine.price }} Euro
+      </div>
+      <div v-if="currentConfig.paintJob">
+       Lackierung: {{ currentConfig.paintJob.name }} + {{ currentConfig.paintJob.price }} Euro
+      </div>
+      <div v-if="currentConfig.rims">
+       Motor: {{ currentConfig.rims.name }} + {{ currentConfig.rims.price }} Euro
+      </div>
+      <div> {{ totalPrice }}</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld'
+  name: 'HelloWorld',
+  props: ["currentConfig","totalPrice"]
 }
 </script>
 

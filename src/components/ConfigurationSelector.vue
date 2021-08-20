@@ -1,7 +1,7 @@
 <template>
   <div class="ConfigurationSelector" v-if="selectedCar">
     <div>
-    Motor:
+      Motor:
       <select v-model="selectedEngine" @change="configChanged()" v-if="engines">
         <option
           v-for="engine in engines"
@@ -9,43 +9,44 @@
           v-bind:value="engine"
           >{{ engine.name }}PS +{{ engine.price }} Euro</option
         >
-    </select>
+      </select>
     </div>
     <div>
-    Lackierung:
-      <select v-model="selectedPaintJob" @change="configChanged()" v-if="paintjobs">
+      Lackierung:
+      <select
+        v-model="selectedPaintJob"
+        @change="configChanged()"
+        v-if="paintjobs"
+      >
         <option
           v-for="paintjob in paintjobs"
           :key="paintjob.name"
           v-bind:value="paintjob"
           >{{ paintjob.name }} +{{ paintjob.price }} Euro</option
         >
-    </select>
+      </select>
     </div>
-        <div>
-    Felgen:
+    <div>
+      Felgen:
       <select v-model="selectedRims" @change="configChanged()" v-if="rims">
-        <option
-          v-for="rim in rims"
-          :key="rim.name"
-          v-bind:value="rim"
+        <option v-for="rim in rims" :key="rim.name" v-bind:value="rim"
           >{{ rim.name }} +{{ rim.price }} Euro</option
         >
-    </select>
+      </select>
     </div>
-
-
-
-  </div> 
+    <div>
+      Aktueller Preis: {{ totalPrice }} Euro
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "ConfigurationSelector",
   props: ["selectedCar"],
-  emits: ['configChanged'],
+  emits: ["configChanged"],
   data() {
-    return{
+    return {
       engines: "",
       paintjobs: [],
       rims: [],
@@ -53,25 +54,55 @@ export default {
       selectedPaintJob: "",
       selectedRims: "",
       extras: "",
-
-    }
+      currentConfig: "",
+      totalPrice: 0,
+    };
   },
   watch: {
     selectedCar: function(newVal) {
-      console.log("Car selected")
-      console.log(newVal)
+      console.log("Car selected");
+      console.log(newVal);
       this.engines = newVal.engine;
       this.paintjobs = newVal.paintjob;
       this.rims = newVal.rims;
     },
   },
-    methods: {
-    configChanged(){
-      var config = {"id":this.selectedCar.id, "name":this.selectedCar.name,"engine":this.selectedEngine,"rims": this.selectedRims,"paintJob":this.selectedPaintJob, "extras":this.extras}
-      console.log(config)
-      this.$emit("configChanged",config)
-    }
-  }
+  methods: {
+    configChanged() {
+      this.currentConfig = {
+        id: this.selectedCar.id,
+        basePrice: this.selectedCar.basePrice,
+        name: this.selectedCar.name,
+        engine: this.selectedEngine,
+        rims: this.selectedRims,
+        paintJob: this.selectedPaintJob,
+        extras: this.extras,
+      };
+      this.calculateTotalPrice();
+      this.$emit("configChanged", this.currentConfig);
+    },
+    calculateTotalPrice() {
+      if (this.currentConfig === "") {
+        return;
+      }
+      var total = 0;
+      total += this.currentConfig.basePrice;
+
+      console.log(total);
+      console.log(this.currentConfig.engine);
+
+      if (this.currentConfig.engine) {
+        total += this.currentConfig.engine.price;
+      }
+      if (this.currentConfig.paintJob) {
+        total += this.currentConfig.paintJob.price;
+      }
+      if (this.currentConfig.rims) {
+        total += this.currentConfig.rims.price;
+      }
+      this.totalPrice = total;
+    },
+  },
 };
 </script>
 
